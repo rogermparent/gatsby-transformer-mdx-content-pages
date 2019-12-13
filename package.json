@@ -1,0 +1,20 @@
+{
+  "name": "gatsby-transformer-mdx-content-pages",
+  "version": "1.0.0",
+  "description": "A Gatsby plugin that implements the ContentPage interface using MDX.",
+  "main": "index.js",
+  "author": "rmp",
+  "scripts": {
+    "format": "prettier --write **/*.js",
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
+  },
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "gatsby-transformer"
+  ],
+  "devDependencies": {
+    "prettier": "^1.19.1"
+  },
+  "license": "MIT"
+}
