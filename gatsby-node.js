@@ -59,9 +59,6 @@ exports.onCreateNode = async (
     contentDirectory,
     includeSubdirectories,
 
-    basePath,
-    indexName,
-
     getTemplate,
     makePagePath
   } = options;
