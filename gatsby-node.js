@@ -18,7 +18,7 @@ const defaultOptions = {
 
 const withDefaults = options => ({
   ...defaultOptions,
-  options
+  ...options
 });
 
 exports.createSchemaCustomization = ({ actions, schema }) => {
