@@ -20,7 +20,38 @@ const matchesContentDirectory = (
     ? someStartWith(contentDirectorySetting, fileContentDirectory)
     : someEqual(contentDirectorySetting, fileContentDirectory);
 
+const fileChildMatches = ({
+  node,
+  sourceInstanceName,
+  relativeDirectory,
+  includeSubdirectories,
+  getNode,
+  fileNode
+}) => {
+  const resolvedFileNode = fileNode || getNode(node.parent);
+
+  if (
+    sourceInstanceName !== undefined &&
+    !matchesInstanceName(
+      sourceInstanceName,
+      fileNode.sourceInstanceName,
+      includeSubdirectories
+    )
+  ) {
+    return false;
+  }
+  if (
+    relativeDirectory !== undefined &&
+    !matchesContentDirectory(relativeDirectory, fileNode.relativeDirectory)
+  ) {
+    return false;
+  }
+
+  return true;
+};
+
 module.exports = {
   matchesInstanceName,
-  matchesContentDirectory
+  matchesContentDirectory,
+  fileChildMatches
 };
