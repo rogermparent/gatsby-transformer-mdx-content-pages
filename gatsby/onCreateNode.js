@@ -20,6 +20,7 @@ const onCreateNode = async (
     getTemplate,
     makePagePath,
     buildNodeId,
+    adjustFieldData,
     // Schema customization
     typeName,
     additionalFields
@@ -55,7 +56,7 @@ const onCreateNode = async (
       ? path.join(templateDirectory, templateKey)
       : templateKey;
 
-  const fieldData = {
+  const originalFieldData = {
     id: createNodeId(buildNodeId(node, options)),
     parent: node.id,
     pagePath,
@@ -65,7 +66,19 @@ const onCreateNode = async (
     source___NODE: node.id
   };
 
-  const contentPageNode = buildMdxContentPageNode({ typeName, fieldData });
+  const fieldData = adjustFieldData
+    ? adjustFieldData({
+        node,
+        getNode,
+        originalFieldData,
+        options
+      })
+    : originalFieldData;
+
+  const contentPageNode = buildMdxContentPageNode({
+    typeName,
+    fieldData
+  });
 
   await createNode(contentPageNode);
   createParentChildLink({ parent: node, child: contentPageNode });
