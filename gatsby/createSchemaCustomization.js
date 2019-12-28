@@ -15,9 +15,9 @@ const createSchemaCustomization = ({ actions, schema }, pluginOptions) => {
   const { createTypes } = actions;
   const options = withDefaults(pluginOptions);
 
-  const { additionalFields, typeName } = options;
+  const { typeName, adjustTypeDefinition } = options;
 
-  const type = schema.buildObjectType({
+  const originalDefinition = {
     name: typeName,
     fields: {
       ...contentPageInterface.fields,
@@ -28,11 +28,19 @@ const createSchemaCustomization = ({ actions, schema }, pluginOptions) => {
       body: {
         type: `String!`,
         resolve: parentResolverPassthrough()
-      },
-      ...additionalFields
+      }
     },
     interfaces: [`Node`, contentPageInterface.name, mdxPageInterface.name]
-  });
+  };
+
+  const typeDefinition = adjustTypeDefinition
+    ? adjustTypeDefinition({
+        originalDefinition,
+        options
+      })
+    : originalDefinition;
+
+  const type = schema.buildObjectType(typeDefinition);
 
   createTypes(type);
 };
