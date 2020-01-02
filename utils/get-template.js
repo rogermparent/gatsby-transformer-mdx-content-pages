@@ -1,22 +1,22 @@
-const getTemplate = ({ node, getNode, options }) => {
+const path = require("path");
+
+const getTemplate = (
+  { node, getNode },
+  { directoryTemplates, defaultTemplate, templateDirectory }
+) => {
+  // If there's a frontmatter template, use that before doing anything else.
   if (node.frontmatter.template) {
-    return node.frontmatter.template;
+    return path.join(templateDirectory, node.frontmatter.template);
   }
 
+  // Otherwise, go into the deeper logic
   const { relativeDirectory } = getNode(node.parent);
 
-  const directoryTemplate =
-    options.directoryTemplates && options.directoryTemplates[relativeDirectory];
+  const templateKey =
+    (directoryTemplates && directoryTemplates[relativeDirectory]) ||
+    defaultTemplate;
 
-  if (directoryTemplate) {
-    return directoryTemplate;
-  }
-
-  if (options.defaultTemplate) {
-    return options.defaultTemplate;
-  }
-
-  return null;
+  return path.join(templateDirectory, templateKey);
 };
 
 module.exports = getTemplate;

@@ -46,15 +46,9 @@ const onCreateNode = async (
   )
     return;
 
-  const pagePath = makePagePath({ node, getNode, options });
+  const pagePath = makePagePath({ node, getNode }, options);
 
-  const templateKey =
-    getTemplate({ node, getNode, options }) || defaultTemplate;
-
-  const template =
-    templateDirectory && templateDirectory !== "/"
-      ? path.join(templateDirectory, templateKey)
-      : templateKey;
+  const template = getTemplate({ node, getNode }, options) || "";
 
   const originalFieldData = {
     id: createNodeId(buildNodeId(node, options)),
