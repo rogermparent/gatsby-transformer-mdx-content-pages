@@ -51,7 +51,7 @@ const onCreateNode = async (
   const template = getTemplate({ node, getNode }, options) || "";
 
   const originalFieldData = {
-    id: createNodeId(buildNodeId(node, options)),
+    id: buildNodeId({ node, createNodeId }, options),
     parent: node.id,
     pagePath,
     template,

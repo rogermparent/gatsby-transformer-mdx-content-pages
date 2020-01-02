@@ -1,6 +1,6 @@
 const makePagePath = require(`./make-page-path`);
 const getTemplate = require(`./get-template`);
-const buildNodeId = childNode => `${childNode.id} >>> ContentPage`;
+const buildNodeId = require(`./build-node-id`);
 
 const defaultOptions = {
   basePath: `/`,
