@@ -6,17 +6,9 @@ const filterNode = require(`./filter-node`);
 const defaultOptions = {
   typeName: `MdxContentPage`,
   filterNode,
-  includeSubdirectories: false,
-  relativeDirectory: undefined,
-  sourceInstanceName: undefined,
   buildNodeId,
   makePagePath,
-  basePath: `/`,
-  indexName: `index`,
-  getTemplate,
-  templateDirectory: `src/templates`,
-  directoryTemplates: {},
-  defaultTemplate: `default`
+  getTemplate
 };
 
 const withDefaults = options => ({

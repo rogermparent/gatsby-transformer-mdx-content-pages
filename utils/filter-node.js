@@ -2,7 +2,11 @@ const { fileChildMatches } = require(`./matchers`);
 
 const filterNode = (
   { node, getNode },
-  { relativeDirectory, sourceInstanceName, includeSubdirectories }
+  {
+    includeSubdirectories = false,
+    relativeDirectory = undefined,
+    sourceInstanceName = undefined
+  }
 ) => {
   const fileNode = getNode(node.parent);
 

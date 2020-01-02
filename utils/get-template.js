@@ -2,7 +2,11 @@ const path = require("path");
 
 const getTemplate = (
   { node, getNode },
-  { directoryTemplates, defaultTemplate, templateDirectory }
+  {
+    templateDirectory = `src/templates`,
+    directoryTemplates = {},
+    defaultTemplate = `default`
+  }
 ) => {
   // If there's a frontmatter template, use that before doing anything else.
   if (node.frontmatter.template) {
