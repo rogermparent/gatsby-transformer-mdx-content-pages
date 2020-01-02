@@ -2,8 +2,6 @@ const { withDefaults } = require("../utils/default-options");
 const buildMdxContentPageNode = require(`../utils/build-mdx-content-page-node`);
 const path = require(`path`);
 
-const { fileChildMatches } = require(`../utils/matchers`);
-
 const onCreateNode = async (
   { node, actions, getNode, createNodeId },
   pluginOptions
@@ -20,6 +18,7 @@ const onCreateNode = async (
     getTemplate,
     makePagePath,
     buildNodeId,
+    filterNode,
     adjustFieldData,
     // Schema customization
     typeName,
@@ -29,22 +28,12 @@ const onCreateNode = async (
   const { createNode, createParentChildLink } = actions;
 
   // Only process Mdx nodes
-  if (node.internal.type !== `Mdx`) {
-    return;
-  }
+  if (node.internal.type !== `Mdx`) return;
+
+  // Bail out early if this node doesn't pass the filter
+  if (!filterNode({ node, getNode }, options)) return;
 
   const fileNode = getNode(node.parent);
-
-  // Bail out early if we don't meet the provided limitations
-  if (
-    !fileChildMatches({
-      fileNode,
-      relativeDirectory: contentDirectory,
-      includeSubdirectories,
-      sourceInstanceName
-    })
-  )
-    return;
 
   const pagePath = makePagePath({ node, getNode }, options);
 
