@@ -44,8 +44,6 @@ const onCreateNode = async (
     parent: node.id,
     pagePath,
     template,
-    sourceInstanceName: fileNode.sourceInstanceName,
-    relativeDirectory: fileNode.relativeDirectory,
     source___NODE: node.id
   };
 
